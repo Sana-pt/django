@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Organizer</title>
+</head>
+<body>
+    <h1>Update Organizer</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Name</label>
+        <input type="text" name="name" value="{{ organizer.name }}" required><br>
+        <label>Contact Email</label>
+        <input type="email" name="contact_email" value="{{ organizer.contact_email }}" required><br>
+        <label>Phone Number</label>
+        <input type="text" name="phone_number" value="{{ organizer.phone_number }}" required><br>
+        <button type="submit">Update Organizer</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Events</title>
+</head>
+<body>
+    <h1>List of Events</h1>
+    <table border="1">
+        <tr>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Organizer</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        {% for event in events %}
+        <tr>
+            <td>{{ event.title }}</td>
+            <td>{{ event.date }}</td>
+            <td>{{ event.location }}</td>
+            <td>{{ event.organizer.name }}</td>
+            <td><a href="{% url 'update_event' event.id %}">Update</a></td>
+            <td><a href="{% url 'delete_event' event.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

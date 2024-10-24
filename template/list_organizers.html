@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Organizers</title>
+</head>
+<body>
+    <h1>List of Organizers</h1>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Contact Email</th>
+            <th>Phone Number</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        {% for organizer in organizers %}
+        <tr>
+            <td>{{ organizer.name }}</td>
+            <td>{{ organizer.contact_email }}</td>
+            <td>{{ organizer.phone_number }}</td>
+            <td><a href="{% url 'update_organizer' organizer.id %}">Update</a></td>
+            <td><a href="{% url 'delete_organizer' organizer.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

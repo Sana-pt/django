@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Event</title>
+</head>
+<body>
+    <h1>Add Event</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Title:</label>
+        <input type="text" name="title" required><br>
+        <label>Date:</label>
+        <input type="datetime-local" name="date" required><br>
+        <label>Location:</label>
+        <input type="text" name="location" required><br>
+        <label>Organizer:</label>
+        <select name="organizer" required>
+            {% for organizer in organizers %}
+            <option value="{{ organizer.id }}">{{ organizer.name }}</option>
+            {% endfor %}
+        </select><br>
+        <button type="submit">Add Event</button>
+    </form>
+</body>
+</html>

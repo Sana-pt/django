@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 style="color: blueviolet;">BOOK PUBLISHER TABLE</h1>
+    <table border="4">
+        <tr>
+            <th>TITLE</th>
+            <th>PUBLICATION DATE</th>
+            <th>ISBN</th>
+            <th>PUBLISHER</th>
+        </tr>
+        {% for i in bpb1 %}
+        <tr>
+            <td>{{i.bpb_title}}</td>
+            <td>{{i.bpb_publication_date}}</td>
+            <td>{{i.bpb_isbn}}</td> 
+            <td>{{i.bpb_publisher}}</td> 
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

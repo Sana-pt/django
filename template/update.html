@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        {% for i in updatekey %}
+        <label for="id">id</label>
+        <input type="text"name="id"value="{{i.book_id}}" required><br>
+        <label for="title">title</label>
+        <input type="text"name="title"value="{{i.book_title}}" required><br>
+        <label for="author">author</label>
+        <input type="text"name="author"value="{{i.book_author}}" required><br>
+        <label for="published_date">published_date</label>
+        <input type="date"name="published_date"value="{{i.published_date|date:'Y-m-d'}}" required><br>
+        <label for="isbn">isbn</label>
+        <input type="text"name="isbn"value="{{i.isbn}}" required><br>
+        <button type="submit">update</button>
+        {% endfor %}
+    </form>
+    
+</body>
+</html>

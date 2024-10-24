@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1 style="color: rgb(46, 226, 118);">ADD CUSTOMER</h1>
+    <table border="4">
+        <tr>
+            <th>ID</th>
+            <th>FIRST NAME</th>
+            <th>LAST NAME</th>
+            <th>EMAIL</th>
+            <th>PHONE NUMBER</th>
+            <th>ADDRESS</th>
+            <th>DATE OF BIRTH</th>
+            <th>DELETE</th>
+            <th>UPDATE</th>
+        </tr>
+        {% for i in cust1 %}
+        <tr>
+            <td>{{i.id}}</td>
+            <td>{{i.first_name}}</td>
+            <td>{{i.last_name}}</td>
+            <td>{{i.email}}</td>
+            <td>{{i.phone_number}}</td>
+            <td>{{i.address}}</td>
+            <td>{{i.date_of_birth}}</td>
+            <td><a href="{% url 'delete_cust' i.pk %}"style="color: red;">delete</a></td>
+            <td><a href="{% url 'update_cust' i.pk %}"style="color: green;">update</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
