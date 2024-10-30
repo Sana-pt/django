@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hotels</title>
+</head>
+<body>
+    <h1>List of Hotels</h1>
+    <form method="POST" action="{% url 'hotel_list' %}">
+        {% csrf_token %}
+        <input type="text" name="search" placeholder="Search Hotels">
+        <button type="submit">Search</button>
+    </form>
+
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Rating</th>
+            <th>Description</th>
+            <th>View Bookings</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        {% for hotel in hotels %}
+        <tr>
+            <td>{{hotel.name}}</td>
+            <td>{{hotel.location}}</td>
+            <td>{{hotel.rating}}</td>
+            <td>{{hotel.description}}</td>
+            <td><a href="{% url 'hotel_bookings' hotel.id %}">View Bookings</a></td>
+            <td><a href="{% url 'update_hotel' hotel.id %}">Update</a></td>
+            <td><a href="{% url 'delete_hotel' hotel.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

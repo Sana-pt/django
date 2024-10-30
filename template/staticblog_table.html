@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static 'css/staticlogin.css' %}"> 
+</head>
+
+<body>
+
+<div class="login-container">
+    <img src="{% static 'image/tiger.jpg' %}"alt="Login Image" class="login-image"> 
+    <h2>Login</h2>
+    <form action="{% url 'loginblog' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="title" required>
+        <input type="text" name="content" placeholder="content" required>
+        <input type="text" name="created_at" placeholder="created_at" required>
+        <button type="submit">submit</button>
+    </form>
+    
+</div>
+
+</body>
+</html>

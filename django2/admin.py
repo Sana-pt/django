@@ -37,3 +37,18 @@ admin.site.register(studentmodel)
 
 admin.site.register(Organizer)
 admin.site.register(Event)
+
+admin.site.register(Product)
+admin.site.register(Category)
+
+class HotelAdmin(admin.ModelAdmin):
+    list_display=('name','location','rating')
+    search_fields=('name','location')
+    list_filter=('rating',)
+class BookingAdmin(admin.ModelAdmin):
+    list_display=('guest_name','check_in_date','hotel')
+    search_fields=('guest_name',)
+    list_filter=('check_in_date',)
+admin.site.register(Hotel,HotelAdmin)
+admin.site.register(Booking,BookingAdmin)
+

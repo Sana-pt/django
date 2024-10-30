@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django2 import views 
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -69,4 +71,27 @@ urlpatterns = [
     path('update_event/<int:id>/', views.update_event, name='update_event'),
     path('delete_organizer/<int:id>/', views.delete_organizer, name='delete_organizer'),
     path('delete_event/<int:id>/', views.delete_event, name='delete_event'),
+
+    # path('add_product',views.add_product,name='add_product'),
+
+    path('hotels/', views.hotel_list, name='hotel_list'),
+    path('hotels/create/', views.create_hotel, name='create_hotel'),
+    path('hotels/<int:hotel_id>/bookings/', views.hotel_bookings, name='hotel_bookings'),
+    path('hotels/bookings/create/', views.create_booking, name='add_booking'),
+    path('hotels/bookings/<int:hotel_id>/update/', views.update_booking, name='update_booking'),
+    path('hotels/bookings/<int:hotel_id>/delete/', views.delete_booking, name='delete_booking'),
+    path('hotels/high-rating/<str:min_rating>/', views.high_rating_hotels, name='high_rating_hotels'),
+
+    path('fo',views.fun14),
+
+    path('userprofile',views.manage_profile),
+
+    path('img',views.login),
+
+    path('blog',views.post_blog,name='post_blog'),
+    path('update/<int:pk>/',views.update_post, name='update_post'), 
+    path('delete/<int:pk>/',views.delete_post, name='delete_post'),
+    path('imgb',views.loginblog,name='loginblog'),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

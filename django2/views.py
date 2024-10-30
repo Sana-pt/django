@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import *
+
 # Create your views here.
 def fun1(request):
     return HttpResponse("Hi")
@@ -301,8 +302,13 @@ def add_event(request):
 def list_organizers(request):
     organizers=Organizer.objects.all()
     return render(request,'list_organizers.html',{'organizers':organizers})
+from django.db.models import Q
 def list_events(request):
     events=Event.objects.all()
+    if request.method == "POST":
+        value=request.POST.get('search')
+        srch=Event.objects.filter(Q(title__icontains=value))
+        return render(request,'list_events.html',{'events':srch})
     return render(request,'list_events.html',{'events':events})
 def update_organizer(request, id):
     organizer=Organizer.objects.get(id=id)
@@ -333,4 +339,162 @@ def delete_event(request, id):
     event.delete()
     return redirect('list_events')
 
+# def add_product(request):
+#     if request.method == 'POST':
+#         name=request.POST['name']
+#         category_id=request.POST['category']
+#         price=request.POST['price']
+#         stock_quantity=request.POST['stock_quantity']
+#         category=Category.objects.get(id=category_id)
+#         product=Product(name=name,category=category,price=price,stock_quantity=stock_quantity)
+#         product.save()
+#         return redirect('product_list')
+#     categories=Category.objects.all()
+#     return render(request,'add_product.html',{'categories':categories})
+# def add_category(request):
+#     Categories=Category.objects.all()
+#     if request.method == 'POST':
+#         name=request.POST.get('title')
+#         description=request.POST.get('date')
+#         categories=Organizer.objects.get(id=organizer_id)
+#         Event.objects.create(title=title,date=date,location=location,organizer=organizer)
+#         return redirect('list_events')
+#     return render(request,'add_event.html',{'organizers':organizers})
+# def list_product(request):
+#     lists=Product.objects.all()
+#     if request.method == "POST":
+#         value=request.POST.get('search')
+#         srch=Product.objects.filter(Q(name__icontains=value))
+#         return render(request,'list_product.html',{'lists':srch})
+#     return render(request,'list_product.html',{'lists':lists})
 
+
+
+def hotel_list(request):
+    hotels=Hotel.objects.all()
+    if request.method == "POST":
+        search_t=request.POST.get('search')
+        if search_t:
+            hotels=hotels.filter(name_icontains=search_t)
+    return render(request,'hotel_list.html',{'hotels':hotels})
+def hotel_bookings(request,hotel_id):
+    hotel=Hotel.objects.filter(id=hotel_id).first()
+    bookings=hotel.bookings.all() if hotel else []
+    return render(request,'hotel_bookings.html',{'hotel': hotel,'bookings':bookings})
+def create_hotel(request):
+    if request.method == 'POST':
+        name=request.POST['name']
+        location=request.POST['location']
+        rating=request.POST['rating']
+        description=request.POST.get('description', '')
+        Hotel.objects.create(name=name,location=location,rating=rating,description=description)
+        return redirect('hotel_list')
+    return render(request,'create_hotel.html')
+def create_booking(request):
+    if request.method == 'POST':
+        guest_name=request.POST['guest_name']
+        check_in_date=request.POST['check_in_date']
+        hotel_id=request.POST['hotel']
+        hotel=Hotel.objects.filter(id=hotel_id).first()
+        if hotel:
+            Booking.objects.create(guest_name=guest_name,check_in_date=check_in_date,hotel=hotel)
+            return redirect('hotel_bookings',hotel_id=hotel.id)
+    hotels=Hotel.objects.all()
+    return render(request,'create_booking.html',{'hotels': hotels})
+def update_booking(request,booking_id):
+    booking=Booking.objects.filter(id=booking_id).first()
+    if booking:
+        if request.method == 'POST':
+            booking.guest_name=request.POST['guest_name']
+            booking.save()
+            return redirect('hotel_bookings',hotel_id=booking.hotel.id)
+    return render(request,'update_booking.html',{'booking':booking})
+def update_hotel(request, hotel_id):
+    hotel=Hotel.objects.filter(id=hotel_id).first()
+    if hotel:
+        if request.method == 'POST':
+            hotel.name=request.POST['name']
+            hotel.location=request.POST['location']
+            hotel.rating=request.POST['rating']
+            hotel.description=request.POST.get('description','')
+            hotel.save()
+            return redirect('hotel_list')
+    return render(request, 'update_hotel.html', {'hotel': hotel})
+def delete_hotel(request,hotel_id):
+    hotel=Hotel.objects.filter(id=hotel_id).first()
+    if hotel:
+        hotel.delete()
+    return redirect('hotel_list')
+def delete_booking(request,booking_id):
+    booking=Booking.objects.filter(id=booking_id).first()
+    hotel_id=booking.hotel.id if booking else None
+    if booking:
+        booking.delete()
+    return redirect('hotel_bookings',hotel_id=hotel_id) if hotel_id else redirect('hotel_list')
+def high_rating_hotels(request,min_rating):
+    hotels=Hotel.objects.filter(rating__gt=min_rating)
+    return render(request,'high_rating_hotels.html',{'hotels':hotels})
+
+from .forms import userform
+def fun14(request):
+    if request.method == "POST":
+        form=userform(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form=userform()
+    return render(request,"users.html",{'form1':form})
+
+from .forms import UserProfileForm
+def manage_profile(request):
+    if request.method == "POST":
+        form=UserProfileForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form=UserProfileForm()
+    return render(request,"profile_form.html",{'form2': form})
+
+def login(request):
+    return render(request,"staticlogin.html")
+
+
+
+
+from .forms import PostForm
+def post_blog(request):
+    posts=Post.objects.all()
+    if request.method == "POST":
+        form=PostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('post_blog')
+    else:
+        form=PostForm()
+    return render(request,'post_blogtab.html',{'posts':posts,'form':form})
+def update_post(request,pk):
+    post=Post.objects.get(pk=pk)
+    if request.method == "POST":
+        post.title=request.POST.get('title')
+        post.content=request.POST.get('content')
+        post.save()
+        return redirect('post_blog')
+    form=PostForm(instance=post)
+    return render(request,'update_post.html',{'form':form,'post':post})
+def delete_post(request,pk):
+    post=Post.objects.get(pk=pk)
+    post.delete()
+    return redirect('post_blog')
+def loginblog(request):
+    if request.method == "POST":
+        form=PostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('post_blog') 
+    else:
+        form=PostForm()
+    posts=Post.objects.all()
+    return render(request,'staticblog_table.html',{'posts':posts,'form':form}) 
+
+
+    

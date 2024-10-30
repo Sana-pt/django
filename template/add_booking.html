@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Booking</title>
+</head>
+<body>
+    <h1>Add Booking</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Guest Name:</label>
+        <input type="text" name="guest_name" required><br><br>
+
+        <label>Check-in Date:</label>
+        <input type="date" name="check_in_date" required><br><br>
+
+        <label>Hotel:</label>
+        <select name="hotel" required>
+            {% for hotel in hotels %}
+            <option value="{{hotel.id}}">{{hotel.name}}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <button type="submit">Add Booking</button>
+    </form>
+</body>
+</html>
