@@ -89,6 +89,7 @@ urlpatterns = [
     path('img',views.login),
 
     path('blog',views.post_blog,name='post_blog'),
+    path('addpost', views.add_post, name='add_post'),
     path('update/<int:pk>/',views.update_post, name='update_post'), 
     path('delete/<int:pk>/',views.delete_post, name='delete_post'),
     path('imgb',views.loginblog,name='loginblog'),

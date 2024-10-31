@@ -463,15 +463,18 @@ def login(request):
 
 from .forms import PostForm
 def post_blog(request):
-    posts=Post.objects.all()
+    posts = Post.objects.all()
+    return render(request, 'post_blog.html', {'posts': posts})
+def add_post(request):
     if request.method == "POST":
-        form=PostForm(request.POST)
+        form = PostForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('post_blog')
+            return redirect('post_blog') 
     else:
-        form=PostForm()
-    return render(request,'post_blogtab.html',{'posts':posts,'form':form})
+        form = PostForm()
+        return render(request, 'postblog_form.html', {'form': form})
+    
 def update_post(request,pk):
     post=Post.objects.get(pk=pk)
     if request.method == "POST":

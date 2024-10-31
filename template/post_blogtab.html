@@ -8,7 +8,6 @@
 </head>
 <body>
     <h1>Blog Posts</h1>
-
     
     <table border="4">
         <thead>
@@ -16,7 +15,7 @@
                 <th>Title</th>
                 <th>Created At</th>
                 <th>Content</th>
-                <th>upd & dlt</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -38,12 +37,7 @@
         </tbody>
     </table>
 
-    
-    <h2>Add a New Post</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add Post</button>
-    </form>
+    <br>
+    <a href="{% url 'add_post' %}">Add</a> 
 </body>
 </html>
