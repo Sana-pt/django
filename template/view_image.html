@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="main">
+        {% for x in dataa %}
+        <div class="in">
+            <p><b>{{ x.title }}</b></p>
+            {% if x.image %}
+        <img src="{{ x.image.url }}" alt="Image">
+        {% else %}
+        <p>No image available</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

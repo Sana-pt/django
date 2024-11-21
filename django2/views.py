@@ -473,8 +473,7 @@ def add_post(request):
             return redirect('post_blog') 
     else:
         form = PostForm()
-        return render(request, 'postblog_form.html', {'form': form})
-    
+        return render(request, 'postblog_form.html', {'form': form}) 
 def update_post(request,pk):
     post=Post.objects.get(pk=pk)
     if request.method == "POST":
@@ -499,5 +498,56 @@ def loginblog(request):
     posts=Post.objects.all()
     return render(request,'staticblog_table.html',{'posts':posts,'form':form}) 
 
+from .forms import userregistrationform
+def user(request):
+    if request.method == 'POST':
+      data=userregistrationform(request.POST)
+      if data.is_valid():
+            data.save()
+    else:
+        data=userregistrationform()
+    return render(request,'add_userregistration.html',{'form':data})
 
+def disp_img(request):
+    img1=userimg.objects.all()
+    return render(request,'userimg_table.html',{'img1':img1})
     
+def add_image(request):
+    if request.method == 'POST':
+        title=request.POST.get('title')
+        image=request.FILES.get('image')
+        obj=Image(title=title, image=image)
+        obj.save()
+    return render(request,'image_form.html')
+def view_image(request):
+    data=Image.objects.all()
+    return render(request,'view_image.html',{'dataa':data})
+
+def base(request):
+    return render(request,"base.html")
+def home(request):
+    return render(request,"home.html")
+def about(request):
+    return render(request,"about.html")
+
+def base1(request):
+    return render(request,"base1.html")
+def home1(request):
+    return render(request,"home1.html")
+def about1(request):
+    return render(request,"about1.html")
+def categories1(request):
+    return render(request,"categories1.html")
+
+
+def home(request):
+    return render(request, 'home2.html')
+def products(request):
+    products = [
+        {'name': 'Product 1', 'description': 'Description of product 1', 'price': 10.00},
+        {'name': 'Product 2', 'description': 'Description of product 2', 'price': 15.00},
+        {'name': 'Product 3', 'description': 'Description of product 3', 'price': 20.00},
+    ]
+    return render(request, 'products.html', {'products': products})
+def profile(request):
+    return render(request, 'profile.html')

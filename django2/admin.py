@@ -52,3 +52,6 @@ class BookingAdmin(admin.ModelAdmin):
 admin.site.register(Hotel,HotelAdmin)
 admin.site.register(Booking,BookingAdmin)
 
+admin.site.register(userimg)
+
+admin.site.register(Image)

@@ -93,6 +93,25 @@ urlpatterns = [
     path('update/<int:pk>/',views.update_post, name='update_post'), 
     path('delete/<int:pk>/',views.delete_post, name='delete_post'),
     path('imgb',views.loginblog,name='loginblog'),
+
+    path('form1',views.user),
+    path('userimg1',views.disp_img),
+
+    path('add_image',views.add_image),
+    path('view_image',views.view_image),
+
+   path('base',views.base),
+   path('home',views.home), 
+   path('about',views.about), 
+
+   path('base1',views.base1),
+   path('home1',views.home1), 
+   path('about1',views.about1), 
+   path('categories1',views.categories1),
+
+   path('home3', views.home, name='home'),
+   path('products', views.products, name='products'),
+   path('profile', views.profile, name='profile'),
 ]
 if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="5">
+        <tr>
+            <th>name</th>
+            <th>age</th>
+            <th>img</th>
+           
+            
+        </tr>
+        {% for i in img1 %}
+
+        <tr>
+            <td>{{i.ui_name}}</td>
+            <td>{{i.ui_age}}</td>
+            <td><img src="{{i.ui_img.url}}" alt="img"height="50px"></td> 
+             
+        </tr>
+        {% endfor %}
+</table>
+</body>
+</html>

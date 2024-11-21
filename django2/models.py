@@ -134,3 +134,22 @@ class Post(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.title
+    
+class Registration(models.Model):
+    user_name=models.CharField(max_length=100)
+    Email=models.EmailField()
+    password=models.CharField(max_length=100)
+    confirm_password=models.CharField(max_length=100)
+    def _str_(self):
+        return self.user_name
+    
+class userimg(models.Model):
+    ui_name=models.CharField(max_length=100)
+    ui_age=models.IntegerField()
+    ui_img=models.ImageField(upload_to='image/')
+
+class Image(models.Model):
+    title=models.CharField(max_length=225)
+    image=models.ImageField(upload_to='image/')
+    uploaded_at=models.DateTimeField(auto_now_add=True)
+    
